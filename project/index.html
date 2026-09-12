@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>beyond</title>
+  <meta name="description" content="beyond — an endless journey.">
+
+  <!-- Simple game fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Audio Unlock & Canvas Wrapper -->
+  <div id="appContainer">
+
+    <!-- ==================== HOME SCREEN ==================== -->
+    <section id="homeScreen" class="screen active">
+      <!-- Animated Background Layers -->
+      <div class="home-bg">
+        <div class="sky-gradient"></div>
+        <div class="sun-glow"></div>
+        <div class="cloud-layer layer-1"></div>
+        <div class="cloud-layer layer-2"></div>
+        <div class="floating-island island-1"></div>
+        <div class="floating-island island-2"></div>
+        <div class="particle-field" id="homeParticles"></div>
+      </div>
+
+      <!-- Main Home Content -->
+      <div class="home-content">
+        <header class="home-header">
+          <h1 class="game-logo" data-text="beyond">beyond</h1>
+          <p class="game-tagline">Ithoru oottamalla… oru anubhavamaanu</p>
+        </header>
+
+        <!-- Character Selection Area -->
+        <div class="character-selection-section">
+          <h2 class="section-title">CHOOSE YOUR COMPANION IN FUTILITY</h2>
+          <div class="character-cards" role="radiogroup" aria-label="Select Character">
+            <!-- Boy Card -->
+            <div class="char-card selected" id="cardBoy" role="radio" aria-checked="true" tabindex="0" data-char="boy">
+              <div class="char-preview-box">
+                <canvas id="previewBoyCanvas" width="130" height="150"></canvas>
+                <div class="sparkle-ring"></div>
+              </div>
+              <div class="char-info">
+                <span class="char-badge">BOOBAN</span>
+                <h3 class="char-name">BOOBAN</h3>
+                <p class="char-desc"></p>
+              </div>
+              <div class="select-indicator">
+                <svg viewBox="0 0 24 24" class="check-icon"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                <span>SELECTED</span>
+              </div>
+            </div>
+
+            <!-- Girl Card -->
+            <div class="char-card" id="cardGirl" role="radio" aria-checked="false" tabindex="0" data-char="girl">
+              <div class="char-preview-box">
+                <canvas id="previewGirlCanvas" width="130" height="150"></canvas>
+                <div class="sparkle-ring"></div>
+              </div>
+              <div class="char-info">
+                <span class="char-badge">MOLY</span>
+                <h3 class="char-name">MOLY</h3>
+                <p class="char-desc"></p>
+              </div>
+              <div class="select-indicator">
+                <svg viewBox="0 0 24 24" class="check-icon"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+                <span>SELECTED</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Start Button & Sub-Controls -->
+        <div class="home-actions">
+          <button id="btnStart" class="btn-start" aria-label="Start Endless Journey">
+            <span class="btn-shine"></span>
+            <span class="btn-content">
+              <span class="btn-text">START</span>
+              <svg viewBox="0 0 24 24" class="arrow-icon"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+          </button>
+
+          <div class="home-tips">
+            <span>💡 <strong>Controls:</strong> [SPACE] or [CLICK] to Jump • Click character to interact</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== GAME SCREEN ==================== -->
+    <section id="gameScreen" class="screen">
+      <!-- HTML5 Canvas for Game World -->
+      <canvas id="gameCanvas"></canvas>
+
+      <!-- Glassmorphism In-Game HUD -->
+      <header id="gameHud" class="game-hud">
+        <div class="hud-left">
+          <!-- Coin Badge -->
+          <div class="hud-badge coin-badge" id="hudCoinBadge" title="Coins collected">
+            <div class="coin-icon-wrapper">
+              <span class="coin-symbol">🪙</span>
+            </div>
+            <div class="coin-data">
+              <span class="hud-label">COINS</span>
+              <span class="hud-value" id="hudCoinCount">0</span>
+            </div>
+          </div>
+
+          <!-- Play Time Stopwatch -->
+          <div class="hud-badge time-badge" title="Time wasted on this journey">
+            <span class="hud-icon">⏱️</span>
+            <div class="time-data">
+              <span class="hud-label">TIME WASTED</span>
+              <span class="hud-value" id="hudPlayTime">00:00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hud-right">
+          <!-- Pettikada Button -->
+          <button id="btnOpenShop" class="hud-btn shop-btn" title="Open Pettikada" aria-label="Open Pettikada">
+            <span class="hud-btn-icon">🛒</span>
+            <span class="hud-btn-text">PETTIKADA</span>
+            <span class="shop-badge-alert" id="shopAlertBadge">NEW!</span>
+          </button>
+
+          <!-- Sound Toggle Button -->
+          <button id="btnToggleSound" class="hud-btn icon-only-btn" title="Toggle Sound (Mute/Unmute)" aria-label="Toggle Sound">
+            <span id="soundIcon" class="hud-btn-icon">🔊</span>
+          </button>
+
+          <!-- Close / Exit Button -->
+          <button id="btnCloseGame" class="hud-btn icon-only-btn close-btn" title="Exit Game" aria-label="Close Game">
+            <span class="hud-btn-icon">✖</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- On-Screen Mobile Jump Button -->
+      <div id="mobileControls" class="mobile-controls">
+        <button id="btnMobileJump" class="btn-mobile-jump" aria-label="Jump">
+          <span>JUMP ⬆</span>
+        </button>
+      </div>
+
+      <!-- Bed Ahead Choice Prompt -->
+      <div id="bedChoicePrompt" class="bed-choice-prompt hidden">
+        <div class="bed-choice-badge">🛏️ BED AHEAD</div>
+        <div class="bed-choice-title">Take a nap or jump over?</div>
+        <div class="bed-choice-buttons">
+          <button id="btnBedSleep" class="btn-bed-choice btn-bed-sleep">😴 SLEEP FOR 2 MINUTES</button>
+          <button id="btnBedJump" class="btn-bed-choice btn-bed-jump">🦘 JUMP OVER</button>
+        </div>
+      </div>
+
+      <!-- Speech Bubble Overlay (Floats dynamically above character) -->
+      <div id="characterSpeechBubble" class="speech-bubble hidden">
+        <div class="bubble-text" id="bubbleContent">Don't waste my energy.</div>
+        <div class="bubble-arrow"></div>
+      </div>
+
+      <!-- Toast Notification Container -->
+      <div id="toastContainer" class="toast-container"></div>
+    </section>
+
+
+    <!-- ==================== BED SLEEP OVERLAY ==================== -->
+    <div id="bedSleepOverlay" class="modal-overlay hidden">
+      <div class="sleep-modal-card">
+        <div class="sleep-icon-box">
+          <span class="sleep-emoji">😴</span>
+          <div class="zzz-stream">
+            <span class="z z1">Z</span>
+            <span class="z z2">z</span>
+            <span class="z z3">z</span>
+          </div>
+        </div>
+        <h2 class="sleep-title" id="sleepTitle">Booban is sleeping...</h2>
+        <p class="sleep-subtitle">Don't disturb! The journey will resume shortly.</p>
+        
+        <div class="sleep-timer-display" id="sleepTimerDisplay">02:00</div>
+        
+        <div class="sleep-tip">
+          <span>💤 Shhh... Rest is the most productive useless activity.</span>
+        </div>
+
+        <button id="btnWakeUp" class="btn-secondary sleep-wake-btn">
+          Wake Up Early (Why though?)
+        </button>
+      </div>
+    </div>
+
+
+    <!-- ==================== PETTIKADA MODAL ==================== -->
+    <div id="shopModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="shopTitle">
+      <div class="shop-modal-card">
+        <header class="modal-header">
+          <div class="modal-title-group">
+            <span class="modal-emoji">🛒</span>
+            <div>
+              <h2 id="shopTitle" class="modal-title">PETTIKADA</h2>
+              <p class="modal-subtitle">A small shop for a long walk.</p>
+            </div>
+          </div>
+          <div class="shop-wallet">
+            <span>Your Balance:</span>
+            <strong id="shopWalletCoins">0 🪙</strong>
+          </div>
+          <button id="btnCloseShop" class="modal-close-btn" aria-label="Close Shop">✖</button>
+        </header>
+
+        <div class="shop-items-grid">
+          <!-- Item 1: Remove Pit -->
+          <div class="shop-item-card" id="itemRemovePit">
+            <div class="item-icon-box">🕳️</div>
+            <div class="item-details">
+              <h3 class="item-name">Remove Pit</h3>
+              <p class="item-desc">Remove the pit from the road.</p>
+              <div class="item-meta">
+                <span class="item-price">🪙 20 Coins</span>
+                <span class="item-irony-tag">Sure enough</span>
+                <span class="chaos-tag" id="pitChaosTag">Pit: +0</span>
+              </div>
+            </div>
+            <button class="btn-buy" data-item="remove_pit" data-price="20">BUY</button>
+          </div>
+
+          <!-- Item 2: Remove Banana Peel -->
+          <div class="shop-item-card" id="itemRemoveBanana">
+            <div class="item-icon-box">🍌</div>
+            <div class="item-details">
+              <h3 class="item-name">Remove Banana Peel</h3>
+              <p class="item-desc">Remove banana peels from the road.</p>
+              <div class="item-meta">
+                <span class="item-price">🪙 10 Coins</span>
+                <span class="item-irony-tag">No slips</span>
+                <span class="chaos-tag" id="bananaChaosTag">Banana: +0</span>
+              </div>
+            </div>
+            <button class="btn-buy" data-item="remove_banana" data-price="10">BUY</button>
+          </div>
+
+          <!-- Item 3: Remove Rock -->
+          <div class="shop-item-card" id="itemRemoveRock">
+            <div class="item-icon-box">🪨</div>
+            <div class="item-details">
+              <h3 class="item-name">Remove Rock</h3>
+              <p class="item-desc">Remove rocks from the road.</p>
+              <div class="item-meta">
+                <span class="item-price">🪙 5 Coins</span>
+                <span class="item-irony-tag">For your toes</span>
+                <span class="chaos-tag" id="rockChaosTag">Rock: +0</span>
+              </div>
+            </div>
+            <button class="btn-buy" data-item="remove_rock" data-price="5">BUY</button>
+          </div>
+
+          <!-- Item 4: Buy Absolutely Nothing -->
+          <div class="shop-item-card" id="itemNothing">
+            <div class="item-icon-box">💨</div>
+            <div class="item-details">
+              <h3 class="item-name">Buy Nothing</h3>
+              <p class="item-desc">Nothing. Literally nothing.</p>
+              <div class="item-meta">
+                <span class="item-price">🪙 50 Coins</span>
+                <span class="item-irony-tag">Just nothing</span>
+              </div>
+            </div>
+            <button class="btn-buy" data-item="buy_nothing" data-price="50">BUY</button>
+          </div>
+
+          <!-- Item 5: Walk 10% Slower -->
+          <div class="shop-item-card" id="itemSlow">
+            <div class="item-icon-box">🦥</div>
+            <div class="item-details">
+              <h3 class="item-name">Walk Slower</h3>
+              <p class="item-desc">Walk a little slower.</p>
+              <div class="item-meta">
+                <span class="item-price">🪙 15 Coins</span>
+                <span class="item-irony-tag">Slow mode</span>
+              </div>
+            </div>
+            <button class="btn-buy" data-item="speed_down" data-price="15">BUY</button>
+          </div>
+        </div>
+
+        <footer class="modal-footer">
+          <span class="shop-disclaimer">No refunds. It is a pettikada.</span>
+        </footer>
+      </div>
+    </div>
+
+
+    <!-- ==================== EXIT CONFIRMATION MODAL ==================== -->
+    <div id="exitModal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="exitTitle">
+      <div class="exit-modal-card">
+        <div class="exit-header-art">
+          <span class="exit-emoji">⏳</span>
+        </div>
+        <h2 id="exitTitle" class="exit-main-title">
+          Thank you for wasting <span id="exitTimeWasted" class="highlight-time">00:00</span> of your life.
+        </h2>
+        <p class="exit-subtitle">You accomplished absolutely nothing, and that was the whole point.</p>
+
+        <!-- Stats Breakdown -->
+        <div class="exit-stats-box">
+          <div class="stat-item">
+            <span class="stat-num" id="statCoins">0</span>
+            <span class="stat-label">Coins Wasted</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" id="statPits">0</span>
+            <span class="stat-label">Pits Fallen Into</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" id="statSlips">0</span>
+            <span class="stat-label">Banana Slips</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num" id="statBumps">0</span>
+            <span class="stat-label">Rocks Bumped</span>
+          </div>
+        </div>
+
+        <div class="exit-actions">
+          <button id="btnKeepWasting" class="btn-primary keep-wasting-btn">
+            KEEP WASTING TIME
+          </button>
+          <button id="btnConfirmExit" class="btn-secondary exit-btn">
+            EXIT JOURNEY
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
