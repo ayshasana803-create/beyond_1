@@ -2,39 +2,35 @@
 
 
 
-# [Project Name] 🎯
+# [beyond] 🎯
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: [Ayyappa]
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
+- Team Lead: [Aysha Sana M S] - [Ansar Women's College]
+- Member 2: [Farha Ferose] - [Ansar Women's College]
 - Member 3: [Name] - [College]
 
 ### Project Description
-[2-3 lines about what your project does]
-
+[Beyond is a deliberately useless endless walking game where nothing really matters. Choose Booban or Moly and keep walking through absurd obstacles, funny reactions, and a pointless Pettikada. No game over, no levels, no goal—just an endless journey designed purely for fun and confusion.]
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+[People are suffering from a serious problem: having absolutely nothing to achieve while walking forever. There are no levels, no enemies, no rewards, and definitely no reason to keep going.]
 
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+[Beyond solves this non-existent problem with an endless walking experience where Booban or Moly encounters completely useless obstacles, reacts dramatically, and keeps walking anyway. With a pointless Pettikada and zero actual purpose, Beyond turns doing nothing into an experience.]
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+- [HTML, CSS, JavaScript]
+- [None]
+-[Web Speech API, HTML5 Canvas API]
+-[Visual Studio Code, Git, GitHub, Web Browser]
 
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+
 
 ### Implementation
 For Software:
@@ -42,7 +38,7 @@ For Software:
 [commands]
 
 # Run
-[commands]
+[Live server]
 
 ### Project Documentation
 For Software:
@@ -89,8 +85,8 @@ For Hardware:
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
+- [Aysha Sana M S]: [Game concept and design, UI/UX design, character and obstacle ideas, HTML/CSS development, game testing]
+- [Farha Ferose]: [JavaScript game logic, animations, obstacle interactions, sound/voice features, debugging and testing.]
 - [Name 3]: [Specific contributions]
 
 ---
